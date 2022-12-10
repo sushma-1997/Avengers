@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended: false}));
 
 
 app.get("/", function(req, res){
-    res.send("landing page, go to "  + "<a href='http://localhost:3000/dashboard'>Dashboard</a>?")
+    res.render("landing")
 })
 
 const indexRouter = require('./routes/index');
