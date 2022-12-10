@@ -34,6 +34,19 @@ const staticSqlCommands = {
 
 // ============= functions ================== //
 
+async function getRows(query) {
+  try {
+    const sqlQuery = query;
+    const rows = await pool.query(sqlQuery);
+    // console.log(rows)
+    // res.status(200).json(rows);
+    // res.render("index/arrayResults.ejs", { rows: rows });
+    return rows;
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+}
+
 // ============= Routes ==================== //
 
 router.get("/dashboard", function (req, res) {
@@ -58,8 +71,8 @@ router.post("/faqs", async function (req, res) {
     // console.log('femaleTableCommand: '+femaleTableCommand)
     try {
       const maleCount = await pool.query(maleCountCommand);
-    //   console.log('maleCount: '+maleCount)
-    //   res.status(200).json(maleCount);
+      //   console.log('maleCount: '+maleCount)
+      //   res.status(200).json(maleCount);
       const maleRows = await pool.query(maleTableCommand);
       const femaleCount = await pool.query(femaleCountCommand);
       const femaleRows = await pool.query(femaleTableCommand);
@@ -76,9 +89,9 @@ router.post("/faqs", async function (req, res) {
     }
   } else {
     var faq = req.body.faq;
-    console.log(faq);
+    // console.log(faq);
     let sqlCommand = staticSqlCommands[faq];
-    console.log(sqlCommand);
+    // console.log(sqlCommand);
     try {
       const sqlQuery = sqlCommand;
       const rows = await pool.query(sqlQuery);
@@ -108,6 +121,76 @@ router.get("/querytest", async function (req, res) {
 
 router.get("/find-forms", function (req, res) {
   res.render("index/findForms.ejs");
+});
+
+router.post("/find-forms/category-appearances", async function (req, res) {
+  try {
+    const sqlQuery =
+      "Select * from Avengers where avenger_category=UPPER(" +
+      "'" +
+      req.body.category +
+      "'" +
+      ") AND serving_currently = 'YES' AND number_of_appearances>" +
+      req.body.appearances +
+      ";";
+    const rows = await pool.query(sqlQuery);
+    // console.log(rows)
+    // res.status(200).json(rows);
+    res.render("index/arrayResults.ejs", { rows: rows });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+router.post("/find-forms/years-since-joined", async function (req, res) {
+  // let query =
+  //   "Select * from Avengers where years_since_joined>" +
+  //   req.body.yearsSinceJoined +
+  //   ";";
+  // let rows = getRows(query);
+  // console.log('rows' + rows);
+  // res.render("index/arrayResults.ejs", { rows: rows });
+  try {
+    const sqlQuery =
+      "Select * from Avengers where years_since_joined>" +
+      req.body.yearsSinceJoined +
+      ";";
+    console.log(sqlQuery);
+    const rows = await pool.query(sqlQuery);
+    // console.log(rows)
+    // res.status(200).json(rows);
+    res.render("index/arrayResults.ejs", { rows: rows });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+router.post("/find-forms/deaths-introDate", async function (req, res) {
+  try {
+    const sqlQuery =
+      "Select avenger_name,avenger_category,about_avenger,year_joined,years_since_joined,introduction_date,number_of_appearances,serving_currently,honorary,is_dead,number_of_deaths,is_returned,number_of_returns from Avengers as A JOIN AvengersDeathsAndReturns as DR ON (A.avenger_id=DR.avenger_id) where number_of_deaths>" +
+      req.body.numberOfDeaths +
+      " AND introduction_date='" +
+      req.body.introductionDate +
+      "';";
+    console.log(sqlQuery);
+    const rows = await pool.query(sqlQuery);
+    res.render("index/arrayResults.ejs", { rows: rows });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+router.post("/find-forms/avenger-name", async function (req, res) {
+  try {
+    const sqlQuery = "Select * from Avengers as A JOIN AvengersDeathsAndReturns as DR ON (A.avenger_id=DR.avenger_id) where avenger_name LIKE '%thor%';";
+    console.log(sqlQuery);
+    const rows = await pool.query(sqlQuery);
+    console.log(rows);
+    res.render("index/arrayResults.ejs", { rows: rows });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 });
 
 module.exports = router;
