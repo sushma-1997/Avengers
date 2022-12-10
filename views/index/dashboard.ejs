@@ -1,32 +1,39 @@
 <%- include("../partials/header.ejs") %>
     <h1 class="text-danger"><u>Dashboard Page</u></h1>
-    
-    <p>that you'd like your system to be able to answer (minimum of 15 questions).</p>
-    <a class="btn btn-primary" href="/all/">Look up?</a>
-    <p>Who served longest in the entire Avengers?</p>
-    <a class="btn btn-primary" href="/all/">Look up?</a>
-    <p> How many of them are still alive in the Old Generation Avengers characters?</p>
-    <a class="btn btn-primary" href="/all/">Look up?</a>
-    <p>How many of them are still alive in the New Generation Avengers characters? </p>
-    <a class="btn btn-primary" href="/all/">Look up?</a>
-    <p>How many of them are dead in the New Generation Avengers characters?</p>
-    <a class="btn btn-primary" href="/all/">Look up?</a>
-    <p>How many of them are dead in the Old Generation Avengers characters?</p>
-    <a class="btn btn-primary" href="/all/">Look up?</a>
-    <p>Who are the retired Old Generation Avengers characters?</p>
-    <a class="btn btn-primary" href="/all/">Look up?</a>
-    <p>Who has the highest screen time in the entire series?</p>
-    <a class="btn btn-primary" href="/all/">Look up?</a>
-    <p>Who has least screen time in the entire series?</p>
-    <a class="btn btn-primary" href="/all/">Look up?</a>
-    <p>Display names of the Avengers who have resurrected more than once ?</p>
-    <a class="btn btn-primary" href="/all/">Look up?</a>
-    <p>How many of them received Honorary in Old Generation Avengers?</p>
-    <a class="btn btn-primary" href="/all/">Look up?</a>
-    <p>Display names of the Avengers who have died at least once ?</p>
-    <a class="btn btn-primary" href="/all/">Look up?</a>
-    <p>What characters have probationary based intros?</p>
-    <a class="btn btn-primary" href="/all/">Look up?</a>
 
-    <a href="http://localhost:3000/" class="btn btn-danger">Go to Landing Page?</a>
+    <h3>Static Queries</h3>
+    <form action="/faqs" method="post">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="faq" id="1"
+                value="Who served the longest in the entire Avengers" checked="">
+            <label class="form-check-label" for="1">
+                Who served the longest in the entire Avengers?
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="faq" id="2"
+                value="Who are the retired Old Generation Avengers characters">
+            <label class="form-check-label" for="2">
+                Who are the retired Old Generation Avengers characters?
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="faq" id="3"
+                value="Who has the highest screen time in the entire series">
+            <label class="form-check-label" for="3">
+                Who has the highest screen time in the entire series?
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="faq" id="4"
+                value="Display names of the Avengers who have resurrected/died more than once">
+            <label class="form-check-label" for="4">
+                Display names of the Avengers who have resurrected/died more than once?
+            </label>
+        </div>
+        <button class="btn btn-primary my-3">Look Up?</button>
+    </form>
+
+
+    <a href="http://localhost:3000/" class="btn btn-danger my-3">Go to Landing Page?</a>
     <%- include("../partials/footer.ejs") %>
