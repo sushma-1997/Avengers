@@ -12,7 +12,7 @@ const staticSqlCommands = {
   "Who has the highest screen time in the entire series":
     "Select * from Avengers where number_of_appearances=(Select MAX(number_of_appearances) from Avengers);",
   "Display names of the Avengers who have resurrected/died more than once":
-    "Select avenger_name,avenger_category,about_avenger,year_joined,years_since_joined,introduction_date,number_of_appearances,serving_currently,honorary,number_of_deaths from Avengers as A JOIN AvengersDeathsAndReturns as DR ON (A.avenger_id=DR.avenger_id) where number_of_deaths>1;",
+    "Select avenger_name,avenger_category,about_avenger,year_joined,years_since_joined,introduction_date,number_of_appearances,serving_currently,honorary,number_of_deaths,number_of_returns from Avengers as A,AvengersDeathsAndReturns as DR WHERE (A.avenger_id=DR.avenger_id) AND number_of_deaths>1 AND number_of_deaths>1;",
   "Display the number of males who received Full Honorary in Old Generation Avengers and Females who received Full Honorary in new Generation Avengers":
     {
       males: {
@@ -97,7 +97,7 @@ router.post("/faqs", async function (req, res) {
       const rows = await pool.query(sqlQuery);
       // console.log(rows)
       // res.status(200).json(rows);
-      res.render("index/arrayResults.ejs", { rows: rows });
+      res.render("index/newArrayResults.ejs", { rows: rows });
     } catch (error) {
       res.status(400).send(error.message);
     }
@@ -113,7 +113,7 @@ router.get("/querytest", async function (req, res) {
     const rows = await pool.query(sqlQuery);
     // console.log(rows)
     // res.status(200).json(rows);
-    res.render("index/arrayResults.ejs", { rows: rows });
+    res.render("index/newArrayResults.ejs", { rows: rows });
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -136,7 +136,7 @@ router.post("/find-forms/category-appearances", async function (req, res) {
     const rows = await pool.query(sqlQuery);
     // console.log(rows)
     // res.status(200).json(rows);
-    res.render("index/arrayResults.ejs", { rows: rows });
+    res.render("index/newArrayResults.ejs", { rows: rows });
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -159,7 +159,7 @@ router.post("/find-forms/years-since-joined", async function (req, res) {
     const rows = await pool.query(sqlQuery);
     // console.log(rows)
     // res.status(200).json(rows);
-    res.render("index/arrayResults.ejs", { rows: rows });
+    res.render("index/newArrayResults.ejs", { rows: rows });
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -168,14 +168,14 @@ router.post("/find-forms/years-since-joined", async function (req, res) {
 router.post("/find-forms/deaths-introDate", async function (req, res) {
   try {
     const sqlQuery =
-      "Select avenger_name,avenger_category,about_avenger,year_joined,years_since_joined,introduction_date,number_of_appearances,serving_currently,honorary,is_dead,number_of_deaths,is_returned,number_of_returns from Avengers as A JOIN AvengersDeathsAndReturns as DR ON (A.avenger_id=DR.avenger_id) where number_of_deaths>" +
+      "Select avenger_name,avenger_category,about_avenger,year_joined,years_since_joined,introduction_date,number_of_appearances,serving_currently,honorary,is_dead,number_of_deaths,is_returned,number_of_returns from Avengers as A,AvengersDeathsAndReturns as DR where (A.avenger_id=DR.avenger_id) and number_of_deaths>" +
       req.body.numberOfDeaths +
       " AND introduction_date='" +
       req.body.introductionDate +
       "';";
     console.log(sqlQuery);
     const rows = await pool.query(sqlQuery);
-    res.render("index/arrayResults.ejs", { rows: rows });
+    res.render("index/newArrayResults.ejs", { rows: rows });
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -183,11 +183,11 @@ router.post("/find-forms/deaths-introDate", async function (req, res) {
 
 router.post("/find-forms/avenger-name", async function (req, res) {
   try {
-    const sqlQuery = "Select * from Avengers as A JOIN AvengersDeathsAndReturns as DR ON (A.avenger_id=DR.avenger_id) where avenger_name LIKE '%thor%';";
+    const sqlQuery = "Select avenger_name,avenger_category,about_avenger,year_joined,years_since_joined,introduction_date,number_of_appearances,serving_currently,honorary,probationary_intro_date,is_dead,number_of_deaths,is_returned,number_of_returns from Avengers AS A,AvengersDeathsAndReturns AS DR where (A.avenger_id=DR.avenger_id) AND avenger_name LIKE '%thor%';";
     console.log(sqlQuery);
     const rows = await pool.query(sqlQuery);
     console.log(rows);
-    res.render("index/arrayResults.ejs", { rows: rows });
+    res.render("index/newArrayResults.ejs", { rows: rows });
   } catch (error) {
     res.status(400).send(error.message);
   }
