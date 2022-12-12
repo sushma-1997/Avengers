@@ -50,6 +50,7 @@ async function getRows(query) {
 // ============= Routes ==================== //
 
 router.get("/dashboard", function (req, res) {
+  console.log("dashboardinggggg......")
   res.render("index/dashboard.ejs");
 });
 
@@ -183,7 +184,7 @@ router.post("/find-forms/deaths-introDate", async function (req, res) {
 
 router.post("/find-forms/avenger-name", async function (req, res) {
   try {
-    const sqlQuery = "Select avenger_name,avenger_category,about_avenger,year_joined,years_since_joined,introduction_date,number_of_appearances,serving_currently,honorary,probationary_intro_date,is_dead,number_of_deaths,is_returned,number_of_returns from Avengers AS A,AvengersDeathsAndReturns AS DR where (A.avenger_id=DR.avenger_id) AND avenger_name LIKE '%thor%';";
+    const sqlQuery = "Select avenger_name,avenger_category,about_avenger,year_joined,years_since_joined,introduction_date,number_of_appearances,serving_currently,honorary,probationary_intro_date,is_dead,number_of_deaths,is_returned,number_of_returns from Avengers AS A,AvengersDeathsAndReturns AS DR where (A.avenger_id=DR.avenger_id) AND avenger_name LIKE '%"+ req.body.avengerName +"%';";
     console.log(sqlQuery);
     const rows = await pool.query(sqlQuery);
     console.log(rows);
