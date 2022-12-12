@@ -3,7 +3,7 @@ const localhost = '127.0.0.1';
 const pool = mariadb.createPool({
     host: 'localhost',
     user: 'root',
-    password: 'root',
+    password: 'dbClass',
     database: 'avengers',
     connectionLimit: 5,
     port: 3307
