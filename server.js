@@ -2,6 +2,8 @@ const express = require("express"),
 app = express();
 const dotenv = require('dotenv'),
 bodyParser = require("body-parser");
+const pool = require("./helpers/database");
+
 
 //=======  Basic express app setup =========//
 
