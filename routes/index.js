@@ -8,7 +8,7 @@ const staticSqlCommands = {
   "Who served the longest in the entire Avengers":
     "Select * from Avengers where years_since_joined=(Select MAX(years_since_joined) from Avengers);",
   "Who are the retired Old Generation Avengers characters":
-    "Select * from Avengers where (year_joined<2010 AND serving_currently = 'YES');",
+    "Select * from Avengers where (year_joined<2010 AND serving_currently = 'NO');",
   "Who has the highest screen time in the entire series":
     "Select * from Avengers where number_of_appearances=(Select MAX(number_of_appearances) from Avengers);",
   "Display names of the Avengers who have resurrected/died more than once":
@@ -50,7 +50,7 @@ async function getRows(query) {
 // ============= Routes ==================== //
 
 router.get("/dashboard", function (req, res) {
-  console.log("dashboardinggggg......")
+  console.log("dashboardinggggg......");
   res.render("index/dashboard.ejs");
 });
 
@@ -109,8 +109,7 @@ router.post("/faqs", async function (req, res) {
 
 router.get("/querytest", async function (req, res) {
   try {
-    const sqlQuery =
-      "Select * from Avengers where probationary_intro_date <> '';";
+    const sqlQuery = "Select * from Avengers;";
     const rows = await pool.query(sqlQuery);
     // console.log(rows)
     // res.status(200).json(rows);
@@ -123,6 +122,8 @@ router.get("/querytest", async function (req, res) {
 router.get("/find-forms", function (req, res) {
   res.render("index/findForms.ejs");
 });
+
+// USER DEFINED ------------------------
 
 router.post("/find-forms/category-appearances", async function (req, res) {
   try {
@@ -137,7 +138,11 @@ router.post("/find-forms/category-appearances", async function (req, res) {
     const rows = await pool.query(sqlQuery);
     // console.log(rows)
     // res.status(200).json(rows);
-    res.render("index/newArrayResults.ejs", { rows: rows });
+    if (rows.length != 0) {
+      res.render("index/newArrayResults.ejs", { rows: rows });
+    } else {
+      res.render("index/error.ejs");
+    }
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -160,7 +165,11 @@ router.post("/find-forms/years-since-joined", async function (req, res) {
     const rows = await pool.query(sqlQuery);
     // console.log(rows)
     // res.status(200).json(rows);
-    res.render("index/newArrayResults.ejs", { rows: rows });
+    if (rows.length != 0) {
+      res.render("index/newArrayResults.ejs", { rows: rows });
+    } else {
+      res.render("index/error.ejs");
+    }
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -176,7 +185,11 @@ router.post("/find-forms/deaths-introDate", async function (req, res) {
       "';";
     console.log(sqlQuery);
     const rows = await pool.query(sqlQuery);
-    res.render("index/newArrayResults.ejs", { rows: rows });
+    if (rows.length != 0) {
+      res.render("index/newArrayResults.ejs", { rows: rows });
+    } else {
+      res.render("index/error.ejs");
+    }
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -184,11 +197,64 @@ router.post("/find-forms/deaths-introDate", async function (req, res) {
 
 router.post("/find-forms/avenger-name", async function (req, res) {
   try {
-    const sqlQuery = "Select avenger_name,avenger_category,about_avenger,year_joined,years_since_joined,introduction_date,number_of_appearances,serving_currently,honorary,probationary_intro_date,is_dead,number_of_deaths,is_returned,number_of_returns from Avengers AS A,AvengersDeathsAndReturns AS DR where (A.avenger_id=DR.avenger_id) AND avenger_name LIKE '%"+ req.body.avengerName +"%';";
+    const sqlQuery =
+      "Select avenger_name,avenger_category,about_avenger,year_joined,years_since_joined,introduction_date,number_of_appearances,serving_currently,honorary,probationary_intro_date,is_dead,number_of_deaths,is_returned,number_of_returns from Avengers AS A,AvengersDeathsAndReturns AS DR where (A.avenger_id=DR.avenger_id) AND avenger_name LIKE '%" +
+      req.body.avengerName +
+      "%';";
     console.log(sqlQuery);
     const rows = await pool.query(sqlQuery);
     console.log(rows);
-    res.render("index/newArrayResults.ejs", { rows: rows });
+    if (rows.length != 0) {
+      res.render("index/newArrayResults.ejs", { rows: rows });
+    } else {
+      res.render("index/error.ejs");
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+router.get("/add-avenger", function (req, res) {
+  res.render("index/addAvenger");
+});
+
+router.post("/add-avenger", async function (req, res) {
+  try {
+    const sqlQuery =
+      "Insert into Avengers values((Select max(avenger_id) from Avengers A)+1,'" +
+      req.body.avengerName +
+      "','" +
+      req.body.avengerCategory +
+      "','" +
+      req.body.aboutAvengerURL +
+      "'," +
+      req.body.yearJoined +
+      ",(2015-" +
+      req.body.yearJoined +
+      "),'" +
+      req.body.introMonthYear +
+      "'," +
+      req.body.numberOfAppearances +
+      " ,'" +
+      req.body.servingCurrently +
+      "','" +
+      req.body.honorary +
+      "', '" +
+      req.body.probationaryIntroductionDate +
+      "');";
+    console.log(sqlQuery);
+    const returnMsg = await pool.query(sqlQuery);
+    console.log(returnMsg);
+    // res.send("<h1 style='color:green'>Successfully Inserted to Db </h1>");
+    try {
+      const sqlQuery2 = "select * FROM Avengers WHERE avenger_id=(select max(avenger_id) FROM Avengers)"
+      console.log(sqlQuery2);
+      const rows = await pool.query(sqlQuery2);
+      console.log(rows);
+      res.render("index/newArrayResults.ejs", { rows: rows, message: "Added Successfully" });
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
   } catch (error) {
     res.status(400).send(error.message);
   }

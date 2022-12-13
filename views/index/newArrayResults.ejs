@@ -1,5 +1,8 @@
 <%- include("../partials/header") %>
 <div class="pt-3">
+    <% if(message){ %>
+        <h1 class="text-success"><%= message %></h1>
+    <% } %>
     <table class="table table-dark table-striped">
         <thead>
             <tr class="text-danger">
