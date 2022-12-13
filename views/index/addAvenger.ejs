@@ -1,0 +1,53 @@
+<%- include("../partials/header") %>
+    <div class="forms m-3">
+        <h1>Add Avenger</h1>
+        <form action="/add-avenger" method="post">
+            <div class="form-floating mb-3">
+                <input class="form-control" id="" type="text" name="avengerName">
+                <label for="">Avenger Name</label>
+            </div>
+            <div class="mb-3">
+                <label for="avengerCategory" class="form-label">Avenger Category</label>
+                <select class="form-select" id="avengerCategory" name="avengerCategory" aria-label="Default select">
+                    <option value="MALE" selected>Male</option>
+                    <option value="FEMALE">Female</option>
+                </select>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control" id="aboutAvengerURL" type="url" name="aboutAvengerURL">
+                <label for="aboutAvengerURL">About Avenger URL</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control" id="yearJoined" type="number" name="yearJoined">
+                <label for="yearJoined">Year Joined</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control" id="introMonthYear" type="text" name="introMonthYear">
+                <label for="introMonthYear">Introduction month and year</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control" id="numberOfAppearances" type="number" name="numberOfAppearances">
+                <label for="numberOfAppearances">Number of appearances</label>
+            </div>
+            <div class="mb-3">
+                <label for="servingCurrently" class="form-label">Serving Currently</label>
+                <select class="form-select" id="servingCurrently" name="servingCurrently" aria-label="Default select">
+                    <option value="YES" selected>YES</option>
+                    <option value="NO">NO</option>
+                </select>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control" id="honorary" type="text" name="honorary">
+                <label for="honorary">Honorary</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control" id="probationaryIntroductionDate" type="text"
+                    name="probationaryIntroductionDate">
+                <label for="probationaryIntroductionDate">Probationary Introduction Date</label>
+            </div>
+            <div></div>
+            <button class="w-30 btn btn-lg btn-primary my-3" type="submit">Submit</button>
+        </form>
+        <a href="/" class="btn btn-outline-success my-3">Go Back To Landing Page</a>
+    </div>
+    <%- include("../partials/footer") %>

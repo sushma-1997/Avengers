@@ -1,5 +1,6 @@
 <%- include("../partials/header.ejs") %>
-    <h1 class="text-danger"><u>Dashboard Page</u></h1>
+<div class="pt-3">
+    <h1 class="text-danger"><u>Avengers Dashboard</u></h1>
 
     <h3>Static Queries</h3>
     <form action="/faqs" method="post">
@@ -47,9 +48,11 @@
                 What characters have probationary-based intros?
             </label>
         </div>
-        <button class="btn btn-primary my-3">Look Up?</button>        
+        <button class="btn btn-primary my-3">Seacrch Your Query</button>        
     </form>
 
 
-    <a href="http://localhost:3000/" class="btn btn-danger my-3">Go to Landing Page?</a>
-    <%- include("../partials/footer.ejs") %>
+    <a href="/" class="btn btn-outline-success my-3">Go Back To Landing Page</a>
+</div>
+    
+<%- include("../partials/footer.ejs") %>
