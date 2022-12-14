@@ -1,6 +1,6 @@
 <%- include("../partials/header.ejs") %>
-    <div class="forms m-3">
-        <h3>Who are the avengers with the avenger-category defined by the user that is currently in the Avengers team and who have appearances greater than user-defined input?</h3>
+    <div class="forms m-3 p-3">
+        <h3>1. Who are the avengers with the avenger-category defined by the user that is currently in the Avengers team and who have appearances greater than user-defined input?</h3>
         <form action="/find-forms/category-appearances" method="post">
             <div class="form-floating">
                 <input class="form-control" id="category" type="text" name="category">
@@ -15,7 +15,7 @@
         </form>
     </div>
     <div class="forms m-3">
-        <h3>Display names of the Avengers who have crossed more than user-defined input of years since they joined the
+        <h3>2. Display names of the Avengers who have crossed more than user-defined input of years since they joined the
             team</h3>
         <form action="/find-forms/years-since-joined" method="post">
             <div class="form-floating">
@@ -28,7 +28,7 @@
     </div>
 
     <div class="forms m-3">
-        <h3>Display the avenger’s profile where the number of deaths equals the user-defined input having the date of
+        <h3>3. Display the avenger’s profile where the number of deaths equals the user-defined input having the date of
             introduction as given by the user input.</h3>
         <form action="/find-forms/deaths-introDate" method="post">
             <div class="form-floating">
@@ -44,7 +44,7 @@
         </form>
     </div>
     <div class="forms m-3">
-        <h3>Display the avenger profile based on the name given by the user</h3>
+        <h3>4. Display the avenger profile based on the name given by the user</h3>
         <form action="/find-forms/avenger-name" method="post">
             <div class="form-floating">
                 <input class="form-control" id="avengerName" type="text" name="avengerName">

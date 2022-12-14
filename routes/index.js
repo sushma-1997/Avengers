@@ -50,6 +50,7 @@ async function getRows(query) {
 // ============= Routes ==================== //
 
 router.get("/dashboard", function (req, res) {
+  console.log("dashboardinggggg......");
   res.render("index/dashboard.ejs");
 });
 
