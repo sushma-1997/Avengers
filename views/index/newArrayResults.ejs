@@ -1,0 +1,29 @@
+<%- include("../partials/header") %>
+<div class="pt-3">
+    <% if(message){ %>
+        <h1 class="text-success"><%= message %></h1>
+    <% } %>
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr class="text-danger">
+                <% if(rows[0]){ %>
+                    <% Object.keys(rows[0]).forEach(key => { %>
+                        <th scope="col"><%= key %></th>
+                    <% }); %>
+                <% } %>
+            </tr>
+        </thead>
+        <tbody>
+
+            <% rows.forEach(function(row){ %>
+                <tr class="px-3">
+                    <% Object.keys(row).forEach(key => { %>
+                        <td scope="col"><%= row[key] %></td>
+                    <% }); %>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+    <%- include("../partials/footer") %>

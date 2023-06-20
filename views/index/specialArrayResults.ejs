@@ -1,0 +1,74 @@
+<%- include("../partials/header") %>
+<div class="pt-3">
+    <h3>Number of Males: <%= maleCount %></h3>
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr class="text-danger">
+                <th scope="col">Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">About Avenger</th>
+                <th scope="col">Year Joined</th>
+                <th scope="col">Years Since Joined</th>
+                <th scope="col">Introduction Date</th>
+                <th scope="col">Number of Appearances</th>
+                <th scope="col">Serving Currently</th>
+                <th scope="col">Honorary</th>
+                <th scope="col">Probationary Intro Date</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <% maleRows.forEach(function(row){ %>
+                <tr class="px-3">
+                    <th scope="row"><%= row.avenger_name %></th>
+                    <td><%= row.avenger_category %></td>
+                    <td><a href="<%= row.about_avenger %>"> <%= row.about_avenger %></a></td>
+                    <td><%= row.year_joined %></td>
+                    <td><%= row.years_since_joined %></td>
+                    <td><%= row.introduction_date %></td>
+                    <td><%= row.number_of_appearances %></td>
+                    <td><%= row.serving_currently %></td>
+                    <td><%= row.honorary %></td>
+                    <td><%= row.probationary_intro_date %></td>
+                </tr>
+        <% }) %>
+        </tbody>
+    </table>
+
+    <h3>Number of Females: <%= femaleCount %></h3>
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr class="text-danger">
+                <th scope="col">Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">About Avenger</th>
+                <th scope="col">Year Joined</th>
+                <th scope="col">Years Since Joined</th>
+                <th scope="col">Introduction Date</th>
+                <th scope="col">Number of Appearances</th>
+                <th scope="col">Serving Currently</th>
+                <th scope="col">Honorary</th>
+                <th scope="col">Probationary Intro Date</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <% femaleRows.forEach(function(row){ %>
+                <tr class="px-3">
+                    <th scope="row"><%= row.avenger_name %></th>
+                    <td><%= row.avenger_category %></td>
+                    <td><a href="<%= row.about_avenger %>"> <%= row.about_avenger %></a></td>
+                    <td><%= row.year_joined %></td>
+                    <td><%= row.years_since_joined %></td>
+                    <td><%= row.introduction_date %></td>
+                    <td><%= row.number_of_appearances %></td>
+                    <td><%= row.serving_currently %></td>
+                    <td><%= row.honorary %></td>
+                    <td><%= row.probationary_intro_date %></td>
+                </tr>
+        <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include("../partials/footer") %>
