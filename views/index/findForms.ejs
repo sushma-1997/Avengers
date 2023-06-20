@@ -1,0 +1,59 @@
+<%- include("../partials/header.ejs") %>
+    <div class="forms m-3 p-3">
+        <h3>1. Who are the avengers with the avenger-category defined by the user that is currently in the Avengers team and who have appearances greater than user-defined input?</h3>
+        <form action="/find-forms/category-appearances" method="post">
+            <div class="form-floating">
+                <input class="form-control" id="category" type="text" name="category">
+                <label for="category">Category:</label>
+            </div>
+            <div class="form-floating">
+                <input class="form-control" id="appearances" type="number" name="appearances">
+                <label for="appearances">Appearances:</label>
+            </div>
+            <div></div>
+            <button class="w-30 btn btn-lg btn-primary my-3" type="submit">Find Avengers?</button>
+        </form>
+    </div>
+    <div class="forms m-3">
+        <h3>Display names of the Avengers who have crossed more than user-defined input of years since they joined the
+            team</h3>
+        <form action="/find-forms/years-since-joined" method="post">
+            <div class="form-floating">
+                <input class="form-control" id="yearsSinceJoined" type="number" name="yearsSinceJoined">
+                <label for="yearsSinceJoined">Years Since Joined:</label>
+            </div>
+            <div></div>
+            <button class="w-30 btn btn-lg btn-primary my-3" type="submit">Find Avengers?</button>
+        </form>
+    </div>
+
+    <div class="forms m-3">
+        <h3>Display the avenger’s profile where the number of deaths equals the user-defined input having the date of
+            introduction as given by the user input.</h3>
+        <form action="/find-forms/deaths-introDate" method="post">
+            <div class="form-floating">
+                <input class="form-control" id="numberOfDeaths" type="number" name="numberOfDeaths">
+                <label for="numberOfDeaths">Number of Deaths:</label>
+            </div>
+            <div class="form-floating">
+                <input class="form-control" id="introductionDate" type="text" name="introductionDate">
+                <label for="introductionDate">Year of Introduction:</label>
+            </div>
+            <div></div>
+            <button class="w-30 btn btn-lg btn-primary my-3" type="submit">Find Avengers?</button>
+        </form>
+    </div>
+    <div class="forms m-3">
+        <h3>Display the avenger profile based on the name given by the user</h3>
+        <form action="/find-forms/avenger-name" method="post">
+            <div class="form-floating">
+                <input class="form-control" id="avengerName" type="text" name="avengerName">
+                <label for="avengerName">Enter Avenger Name:</label>
+            </div>
+            <div></div>
+            <button class="w-30 btn btn-lg btn-primary my-3" type="submit">Find Avengers?</button>
+        </form>
+    </div>
+    <a href="/" class="btn btn-outline-warning my-3">Go back to landing page</a>
+
+    <%- include("../partials/footer.ejs") %>
